@@ -34,7 +34,7 @@ import requests
 # ---------------------------------------------------------------------------
 SCRIPT_DIR = Path(__file__).parent
 REPO_ROOT = SCRIPT_DIR.parent
-DATA_DIR = REPO_ROOT / "data"
+DATA_DIR = REPO_ROOT / "public" / "data"
 OUTPUT_FILE = DATA_DIR / "demographics.geojson"
 
 CENSUS_API_KEY = os.environ.get("CENSUS_API_KEY", "")

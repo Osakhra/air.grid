@@ -12,7 +12,7 @@ export const runtime = 'nodejs';
 // Cache for 1 hour — facilities data is static (GHGRP 2022 vintage)
 export const revalidate = 3600;
 
-const FACILITIES_PATH = path.join(process.cwd(), 'data', 'facilities.geojson');
+const FACILITIES_PATH = path.join(process.cwd(), 'public', 'data', 'facilities.geojson');
 const TOP_N = 10_000;
 
 interface FacilityProps {

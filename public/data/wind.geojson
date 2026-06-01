@@ -1,0 +1,1454 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3,
+          47.45
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KSEA",
+        "lat": 47.45,
+        "lng": -122.3,
+        "speed_mps": 4.63,
+        "dir_deg": 340.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.6,
+          45.6
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KPDX",
+        "lat": 45.6,
+        "lng": -122.6,
+        "speed_mps": 4.12,
+        "dir_deg": 290.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.22,
+          44.12
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KEUG",
+        "lat": 44.12,
+        "lng": -123.22,
+        "speed_mps": 4.63,
+        "dir_deg": 330.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.87,
+          42.37
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KMFR",
+        "lat": 42.37,
+        "lng": -122.87,
+        "speed_mps": 2.06,
+        "dir_deg": 330.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3,
+          47.53
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KBFI",
+        "lat": 47.53,
+        "lng": -122.3,
+        "speed_mps": 4.12,
+        "dir_deg": 320.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.4,
+          33.93
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KLAX",
+        "lat": 33.93,
+        "lng": -118.4,
+        "speed_mps": 5.66,
+        "dir_deg": 240.0,
+        "observed_at": "2026-06-01T19:05:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.17,
+          32.73
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KSAN",
+        "lat": 32.73,
+        "lng": -117.17,
+        "speed_mps": 4.12,
+        "dir_deg": 230.0,
+        "observed_at": "2026-06-01T19:05:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.5,
+          38.52
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KSAC",
+        "lat": 38.52,
+        "lng": -121.5,
+        "speed_mps": 2.06,
+        "dir_deg": 310.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.72,
+          36.77
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KFAT",
+        "lat": 36.77,
+        "lng": -119.72,
+        "speed_mps": 1.54,
+        "dir_deg": 300.0,
+        "observed_at": "2026-06-01T19:05:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.35,
+          34.2
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KBUR",
+        "lat": 34.2,
+        "lng": -118.35,
+        "speed_mps": 3.6,
+        "dir_deg": 190.0,
+        "observed_at": "2026-06-01T18:55:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.02,
+          33.43
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KPHX",
+        "lat": 33.43,
+        "lng": -112.02,
+        "speed_mps": 2.06,
+        "dir_deg": 10.0,
+        "observed_at": "2026-06-01T19:10:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.93,
+          32.12
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KTUS",
+        "lat": 32.12,
+        "lng": -110.93,
+        "speed_mps": 2.57,
+        "dir_deg": 340.0,
+        "observed_at": "2026-06-01T19:10:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -106.62,
+          35.05
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KABQ",
+        "lat": 35.05,
+        "lng": -106.62,
+        "speed_mps": 2.06,
+        "dir_deg": 230.0,
+        "observed_at": "2026-06-01T19:05:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.17,
+          36.08
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KLAS",
+        "lat": 36.08,
+        "lng": -115.17,
+        "speed_mps": 3.09,
+        "dir_deg": 40.0,
+        "observed_at": "2026-06-01T19:10:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -104.66,
+          39.83
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KDEN",
+        "lat": 39.83,
+        "lng": -104.66,
+        "speed_mps": 6.69,
+        "dir_deg": 120.0,
+        "observed_at": "2026-06-01T19:10:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -104.72,
+          38.82
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KCOS",
+        "lat": 38.82,
+        "lng": -104.72,
+        "speed_mps": 4.12,
+        "dir_deg": 140.0,
+        "observed_at": "2026-06-01T19:05:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.22,
+          43.57
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KBOI",
+        "lat": 43.57,
+        "lng": -116.22,
+        "speed_mps": 3.09,
+        "dir_deg": 330.0,
+        "observed_at": "2026-06-01T19:05:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.37,
+          47.48
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KGTF",
+        "lat": 47.48,
+        "lng": -111.37,
+        "speed_mps": 6.69,
+        "dir_deg": 270.0,
+        "observed_at": "2026-06-01T19:10:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.15,
+          45.78
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KBZN",
+        "lat": 45.78,
+        "lng": -111.15,
+        "speed_mps": 2.57,
+        "dir_deg": 340.0,
+        "observed_at": "2026-06-01T19:10:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -95.9,
+          41.3
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KOMA",
+        "lat": 41.3,
+        "lng": -95.9,
+        "speed_mps": 1.54,
+        "dir_deg": 10.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.43,
+          37.65
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KICT",
+        "lat": 37.65,
+        "lng": -97.43,
+        "speed_mps": 6.69,
+        "dir_deg": 50.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.6,
+          35.4
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KOKC",
+        "lat": 35.4,
+        "lng": -97.6,
+        "speed_mps": 3.09,
+        "dir_deg": 170.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.43,
+          45.45
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KABR",
+        "lat": 45.45,
+        "lng": -98.43,
+        "speed_mps": 2.06,
+        "dir_deg": 60.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.75,
+          43.58
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KFSD",
+        "lat": 43.58,
+        "lng": -96.75,
+        "speed_mps": 4.12,
+        "dir_deg": 320.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -106.62,
+          48.22
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KGGW",
+        "lat": 48.22,
+        "lng": -106.62,
+        "speed_mps": 9.3,
+        "dir_deg": 240.0,
+        "observed_at": "2026-06-01T17:53:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.9,
+          41.98
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KORD",
+        "lat": 41.98,
+        "lng": -87.9,
+        "speed_mps": 2.57,
+        "dir_deg": 30.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.75,
+          41.78
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KMDW",
+        "lat": 41.78,
+        "lng": -87.75,
+        "speed_mps": 3.09,
+        "dir_deg": 40.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.02,
+          42.42
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KDET",
+        "lat": 42.42,
+        "lng": -83.02,
+        "speed_mps": 4.12,
+        "dir_deg": 90.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -86.27,
+          39.73
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KIND",
+        "lat": 39.73,
+        "lng": -86.27,
+        "speed_mps": 3.09,
+        "dir_deg": 80.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.88,
+          40.0
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KCMH",
+        "lat": 40.0,
+        "lng": -82.88,
+        "speed_mps": 0.0,
+        "dir_deg": 0.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.22,
+          44.88
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KMSP",
+        "lat": 44.88,
+        "lng": -93.22,
+        "speed_mps": 2.57,
+        "dir_deg": 120.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.37,
+          38.75
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KSTL",
+        "lat": 38.75,
+        "lng": -90.37,
+        "speed_mps": 0.0,
+        "dir_deg": 0.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.9,
+          42.95
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KMKE",
+        "lat": 42.95,
+        "lng": -87.9,
+        "speed_mps": 4.12,
+        "dir_deg": 40.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.65,
+          41.53
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KDSM",
+        "lat": 41.53,
+        "lng": -93.65,
+        "speed_mps": 1.54,
+        "dir_deg": 30.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.85,
+          41.42
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KCLE",
+        "lat": 41.42,
+        "lng": -81.85,
+        "speed_mps": 5.14,
+        "dir_deg": 20.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.22,
+          40.5
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KPIT",
+        "lat": 40.5,
+        "lng": -80.22,
+        "speed_mps": 2.57,
+        "dir_deg": 350.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -95.35,
+          29.97
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KIAH",
+        "lat": 29.97,
+        "lng": -95.35,
+        "speed_mps": 1.54,
+        "dir_deg": 50.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -95.28,
+          29.65
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KHOU",
+        "lat": 29.65,
+        "lng": -95.28,
+        "speed_mps": 2.57,
+        "dir_deg": 130.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.03,
+          32.9
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KDFW",
+        "lat": 32.9,
+        "lng": -97.03,
+        "speed_mps": 3.09,
+        "dir_deg": 170.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.47,
+          29.53
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KSAT",
+        "lat": 29.53,
+        "lng": -98.47,
+        "speed_mps": 4.12,
+        "dir_deg": 110.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.25,
+          29.98
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KMSY",
+        "lat": 29.98,
+        "lng": -90.25,
+        "speed_mps": 2.06,
+        "dir_deg": 190.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -91.15,
+          30.53
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KBTR",
+        "lat": 30.53,
+        "lng": -91.15,
+        "speed_mps": 1.54,
+        "dir_deg": 240.0,
+        "observed_at": "2026-06-01T19:10:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.08,
+          32.32
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KJAN",
+        "lat": 32.32,
+        "lng": -90.08,
+        "speed_mps": 2.57,
+        "dir_deg": 10.0,
+        "observed_at": "2026-06-01T19:10:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.42,
+          33.65
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KATL",
+        "lat": 33.65,
+        "lng": -84.42,
+        "speed_mps": 4.12,
+        "dir_deg": 320.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -86.75,
+          33.57
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KBHM",
+        "lat": 33.57,
+        "lng": -86.75,
+        "speed_mps": 2.57,
+        "dir_deg": 360.0,
+        "observed_at": "2026-06-01T19:10:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.0,
+          35.05
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KMEM",
+        "lat": 35.05,
+        "lng": -90.0,
+        "speed_mps": 3.09,
+        "dir_deg": 260.0,
+        "observed_at": "2026-06-01T18:55:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -86.68,
+          36.13
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KBNA",
+        "lat": 36.13,
+        "lng": -86.68,
+        "speed_mps": 3.6,
+        "dir_deg": 190.0,
+        "observed_at": "2026-06-01T18:55:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.6,
+          38.05
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KLEX",
+        "lat": 38.05,
+        "lng": -84.6,
+        "speed_mps": 3.6,
+        "dir_deg": 40.0,
+        "observed_at": "2026-06-01T19:10:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.12,
+          26.68
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KPBI",
+        "lat": 26.68,
+        "lng": -80.12,
+        "speed_mps": 5.66,
+        "dir_deg": 270.0,
+        "observed_at": "2026-06-01T19:05:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.28,
+          25.82
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KMIA",
+        "lat": 25.82,
+        "lng": -80.28,
+        "speed_mps": 2.57,
+        "dir_deg": 250.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.53,
+          27.97
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KTPA",
+        "lat": 27.97,
+        "lng": -82.53,
+        "speed_mps": 6.17,
+        "dir_deg": 310.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.2,
+          36.9
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KORF",
+        "lat": 36.9,
+        "lng": -76.2,
+        "speed_mps": 5.14,
+        "dir_deg": 10.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.03,
+          38.85
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KDCA",
+        "lat": 38.85,
+        "lng": -77.03,
+        "speed_mps": 2.57,
+        "dir_deg": 10.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.45,
+          38.95
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KIAD",
+        "lat": 38.95,
+        "lng": -77.45,
+        "speed_mps": 3.6,
+        "dir_deg": 30.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.67,
+          39.18
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KBWI",
+        "lat": 39.18,
+        "lng": -76.67,
+        "speed_mps": 4.12,
+        "dir_deg": 60.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.25,
+          39.87
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KPHL",
+        "lat": 39.87,
+        "lng": -75.25,
+        "speed_mps": 6.17,
+        "dir_deg": 70.0,
+        "observed_at": "2026-06-01T19:05:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.88,
+          40.78
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KLGA",
+        "lat": 40.78,
+        "lng": -73.88,
+        "speed_mps": 8.23,
+        "dir_deg": 50.0,
+        "observed_at": "2026-06-01T18:55:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.17,
+          40.7
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KEWR",
+        "lat": 40.7,
+        "lng": -74.17,
+        "speed_mps": 4.63,
+        "dir_deg": 130.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.01,
+          42.36
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KBOS",
+        "lat": 42.36,
+        "lng": -71.01,
+        "speed_mps": 4.63,
+        "dir_deg": 80.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.68,
+          41.93
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KBDL",
+        "lat": 41.93,
+        "lng": -72.68,
+        "speed_mps": 2.57,
+        "dir_deg": 60.0,
+        "observed_at": "2026-06-01T19:05:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.43,
+          41.73
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KPVD",
+        "lat": 41.73,
+        "lng": -71.43,
+        "speed_mps": 3.6,
+        "dir_deg": 50.0,
+        "observed_at": "2026-06-01T19:05:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.15,
+          44.47
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KBTV",
+        "lat": 44.47,
+        "lng": -73.15,
+        "speed_mps": 5.66,
+        "dir_deg": 320.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.5,
+          43.2
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KCON",
+        "lat": 43.2,
+        "lng": -71.5,
+        "speed_mps": 3.09,
+        "dir_deg": 40.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.83,
+          44.8
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KBGR",
+        "lat": 44.8,
+        "lng": -68.83,
+        "speed_mps": 2.57,
+        "dir_deg": 10.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.93,
+          35.22
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KCLT",
+        "lat": 35.22,
+        "lng": -80.93,
+        "speed_mps": 3.09,
+        "dir_deg": 220.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -78.79,
+          35.88
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KRDU",
+        "lat": 35.88,
+        "lng": -78.79,
+        "speed_mps": 3.09,
+        "dir_deg": 360.0,
+        "observed_at": "2026-06-01T19:05:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.97,
+          35.33
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KGSB",
+        "lat": 35.33,
+        "lng": -77.97,
+        "speed_mps": 4.1,
+        "dir_deg": 260.0,
+        "observed_at": "2026-06-01T17:55:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.03,
+          32.9
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KCHS",
+        "lat": 32.9,
+        "lng": -80.03,
+        "speed_mps": 3.09,
+        "dir_deg": 150.0,
+        "observed_at": "2026-06-01T19:00:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.2,
+          32.13
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KSAV",
+        "lat": 32.13,
+        "lng": -81.2,
+        "speed_mps": 3.6,
+        "dir_deg": 290.0,
+        "observed_at": "2026-06-01T17:53:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.7,
+          30.5
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KJAX",
+        "lat": 30.5,
+        "lng": -81.7,
+        "speed_mps": 3.6,
+        "dir_deg": 10.0,
+        "observed_at": "2026-06-01T19:10:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.32,
+          28.43
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-KMCO",
+        "lat": 28.43,
+        "lng": -81.32,
+        "speed_mps": 6.69,
+        "dir_deg": 330.0,
+        "observed_at": "2026-06-01T19:10:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -150.02,
+          61.17
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-PANC",
+        "lat": 61.17,
+        "lng": -150.02,
+        "speed_mps": 3.09,
+        "dir_deg": 230.0,
+        "observed_at": "2026-06-01T19:05:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -147.87,
+          64.82
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-PAFA",
+        "lat": 64.82,
+        "lng": -147.87,
+        "speed_mps": 0.0,
+        "dir_deg": 0.0,
+        "observed_at": "2026-06-01T19:05:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -134.58,
+          58.37
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-PAJN",
+        "lat": 58.37,
+        "lng": -134.58,
+        "speed_mps": 4.12,
+        "dir_deg": 240.0,
+        "observed_at": "2026-06-01T19:05:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -155.07,
+          19.72
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-PHTO",
+        "lat": 19.72,
+        "lng": -155.07,
+        "speed_mps": 3.6,
+        "dir_deg": 250.0,
+        "observed_at": "2026-06-01T17:53:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.0,
+          18.43
+        ]
+      },
+      "properties": {
+        "cell_id": "nws-TJSJ",
+        "lat": 18.43,
+        "lng": -66.0,
+        "speed_mps": 5.7,
+        "dir_deg": 160.0,
+        "observed_at": "2026-06-01T17:56:00Z",
+        "source": "nws-api-weather-gov"
+      }
+    }
+  ],
+  "_meta": {
+    "generated_at": "2026-06-01T19:24:23Z",
+    "count": 76,
+    "description": "NWS wind observations (speed + direction) for continental US"
+  }
+}

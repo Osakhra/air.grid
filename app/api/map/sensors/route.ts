@@ -10,7 +10,7 @@ import fs from 'fs';
 
 export const runtime = 'nodejs';
 
-const SENSORS_PATH = path.join(process.cwd(), 'data', 'sensors.geojson');
+const SENSORS_PATH = path.join(process.cwd(), 'public', 'data', 'sensors.geojson');
 
 export async function GET() {
   try {

@@ -41,7 +41,7 @@ import requests
 # Paths
 # ---------------------------------------------------------------------------
 REPO_ROOT = Path(__file__).resolve().parent.parent
-DATA_DIR = REPO_ROOT / "data"
+DATA_DIR = REPO_ROOT / "public" / "data"
 SENSORS_PATH = DATA_DIR / "sensors.geojson"
 WIND_PATH = DATA_DIR / "wind.geojson"
 STATUS_PATH = REPO_ROOT / "STATUS.md"

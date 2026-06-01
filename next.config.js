@@ -21,6 +21,6 @@ const nextConfig = {
 module.exports = nextConfig;
 
 // Vercel cron configuration.
-// The cron schedule runs /api/refresh every hour on the hour (UTC).
+// The cron schedule runs /api/refresh once daily at 08:00 UTC (Vercel Hobby plan limit).
 // Vercel reads this from vercel.json; this comment is the authoritative note.
 // See /vercel.json for the actual cron declaration.

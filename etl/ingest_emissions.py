@@ -39,9 +39,9 @@ from pathlib import Path
 # Paths
 # ---------------------------------------------------------------------------
 REPO_ROOT = Path(__file__).resolve().parent.parent
-DATA_DIR = REPO_ROOT / "data"
+DATA_DIR = REPO_ROOT / "public" / "data"
 OUTPUT_FILE = DATA_DIR / "facilities.geojson"
-CACHE_DIR = DATA_DIR / "_cache" / "emissions"
+CACHE_DIR = REPO_ROOT / "data" / "_cache" / "emissions"
 
 # ---------------------------------------------------------------------------
 # Logging (ASCII-safe format for Windows console compatibility)

@@ -49,7 +49,7 @@ import requests
 # ---------------------------------------------------------------------------
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-DATA_DIR = REPO_ROOT / "data"
+DATA_DIR = REPO_ROOT / "public" / "data"
 OUTPUT_FILE = DATA_DIR / "schools.geojson"
 
 # US bounding box filter (lat 17-72, lng -180 to -65)

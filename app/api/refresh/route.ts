@@ -45,7 +45,7 @@ const NWS_EMAIL =
   process.env.NWS_CONTACT_EMAIL ?? "evyosakhra@gmail.com";
 const NWS_UA = `air.grid/1.0 ${NWS_EMAIL}`;
 
-const DATA_DIR = path.join(process.cwd(), "data");
+const DATA_DIR = path.join(process.cwd(), "public", "data");
 const SENSORS_PATH = path.join(DATA_DIR, "sensors.geojson");
 const WIND_PATH = path.join(DATA_DIR, "wind.geojson");
 

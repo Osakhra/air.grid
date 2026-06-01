@@ -11,7 +11,7 @@ import fs from 'fs';
 export const runtime = 'nodejs';
 export const revalidate = 86400; // demographics data is static (ACS 2022)
 
-const DEMO_PATH = path.join(process.cwd(), 'data', 'demographics.geojson');
+const DEMO_PATH = path.join(process.cwd(), 'public', 'data', 'demographics.geojson');
 const SAMPLE_N = 15_000;
 
 interface DemoProps {

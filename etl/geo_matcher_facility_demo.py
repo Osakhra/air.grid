@@ -56,9 +56,9 @@ log = logging.getLogger(__name__)
 # Paths
 # ---------------------------------------------------------------------------
 PROJECT_ROOT = Path("C:/Projects/air.grid")
-FACILITIES_PATH = PROJECT_ROOT / "data" / "facilities.geojson"
-DEMOGRAPHICS_PATH = PROJECT_ROOT / "data" / "demographics.geojson"
-OUTPUT_DIR = PROJECT_ROOT / "data" / "joins"
+FACILITIES_PATH = PROJECT_ROOT / "public" / "data" / "facilities.geojson"
+DEMOGRAPHICS_PATH = PROJECT_ROOT / "public" / "data" / "demographics.geojson"
+OUTPUT_DIR = PROJECT_ROOT / "public" / "data" / "joins"
 OUTPUT_PATH = OUTPUT_DIR / "facility_demographics.geojson"
 
 # ---------------------------------------------------------------------------

@@ -9,7 +9,7 @@ import fs from 'fs';
 
 export const runtime = 'nodejs';
 
-const WIND_PATH = path.join(process.cwd(), 'data', 'wind.geojson');
+const WIND_PATH = path.join(process.cwd(), 'public', 'data', 'wind.geojson');
 
 export async function GET() {
   try {

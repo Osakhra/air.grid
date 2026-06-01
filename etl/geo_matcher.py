@@ -49,7 +49,7 @@ SOURCE_TAG: str = "geo-matcher-2026-06-01"
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
-DATA_DIR = Path("C:/Projects/air.grid/data")
+DATA_DIR = Path("C:/Projects/air.grid/public/data")
 JOINS_DIR = DATA_DIR / "joins"
 
 INPUT_PATHS = {

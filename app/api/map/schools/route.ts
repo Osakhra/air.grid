@@ -11,7 +11,7 @@ import fs from 'fs';
 export const runtime = 'nodejs';
 export const revalidate = 3600;
 
-const SCHOOLS_PATH = path.join(process.cwd(), 'data', 'schools.geojson');
+const SCHOOLS_PATH = path.join(process.cwd(), 'public', 'data', 'schools.geojson');
 const TOP_N = 20_000;
 
 interface SchoolProps {
