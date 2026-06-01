@@ -8,11 +8,11 @@ import { NextResponse } from 'next/server';
 import { getFacilities } from '@/app/lib/dataLoader';
 
 export const runtime = 'nodejs';
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const facilities = getFacilities();
+    const facilities = await getFacilities();
 
     const top20 = facilities.features
       .filter((f) => f.properties.emissions_value > 0)

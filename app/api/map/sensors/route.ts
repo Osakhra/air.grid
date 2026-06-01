@@ -5,23 +5,22 @@
  */
 
 import { NextResponse } from 'next/server';
-import path from 'path';
-import fs from 'fs';
 
 export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
-const SENSORS_PATH = path.join(process.cwd(), 'public', 'data', 'sensors.geojson');
+const BASE_URL = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 
 export async function GET() {
   try {
-    const raw = fs.readFileSync(SENSORS_PATH, 'utf-8');
-    const fc = JSON.parse(raw);
+    const res = await fetch(`${BASE_URL}/data/sensors.geojson`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const fc = await res.json();
 
     return NextResponse.json(fc, {
-      headers: {
-        // 5-minute cache so the polling interval can pick up refreshed data
-        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
-      },
+      headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' },
     });
   } catch (err) {
     console.error('[api/map/sensors] error:', err);

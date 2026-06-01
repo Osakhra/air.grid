@@ -8,11 +8,11 @@ import { NextResponse } from 'next/server';
 import { getSensors } from '@/app/lib/dataLoader';
 
 export const runtime = 'nodejs';
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const sensors = getSensors();
+    const sensors = await getSensors();
 
     const top20 = sensors.features
       .filter((f) => f.properties.aqi !== null && f.properties.aqi !== undefined)

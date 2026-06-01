@@ -13,15 +13,14 @@ import {
 } from '@/app/lib/dataLoader';
 
 export const runtime = 'nodejs';
-// Revalidate every hour to stay fresh without hammering disk on every request
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const facilities = getFacilities();
-    const sensors = getSensors();
-    const schools = getSchools();
-    const exposure = getSchoolExposure();
+    const facilities = await getFacilities();
+    const sensors = await getSensors();
+    const schools = await getSchools();
+    const exposure = await getSchoolExposure();
 
     const facilityCount = facilities.features.length;
     const sensorCount = sensors.features.length;

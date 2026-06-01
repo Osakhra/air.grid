@@ -5,13 +5,14 @@
  */
 
 import { NextResponse } from 'next/server';
-import path from 'path';
-import fs from 'fs';
 
 export const runtime = 'nodejs';
-export const revalidate = 86400; // demographics data is static (ACS 2022)
+export const dynamic = 'force-dynamic';
 
-const DEMO_PATH = path.join(process.cwd(), 'public', 'data', 'demographics.geojson');
+const BASE_URL = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+
 const SAMPLE_N = 15_000;
 
 interface DemoProps {
@@ -37,8 +38,9 @@ interface FeatureCollection {
 
 export async function GET() {
   try {
-    const raw = fs.readFileSync(DEMO_PATH, 'utf-8');
-    const fc: FeatureCollection = JSON.parse(raw);
+    const res = await fetch(`${BASE_URL}/data/demographics.geojson`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const fc: FeatureCollection = await res.json();
 
     const valid = fc.features.filter(
       (f) =>
@@ -48,26 +50,22 @@ export async function GET() {
         typeof f.properties.pct_minority === 'number'
     );
 
-    // Deterministic sample: every Nth feature to spread geographically
     const step = Math.max(1, Math.floor(valid.length / SAMPLE_N));
     const sampled = valid.filter((_, i) => i % step === 0).slice(0, SAMPLE_N);
 
-    const result = {
-      type: 'FeatureCollection',
-      features: sampled,
-      metadata: {
-        sampled: true,
-        sample_size: sampled.length,
-        total: fc.features.length,
-        served_at: new Date().toISOString(),
+    return NextResponse.json(
+      {
+        type: 'FeatureCollection',
+        features: sampled,
+        metadata: {
+          sampled: true,
+          sample_size: sampled.length,
+          total: fc.features.length,
+          served_at: new Date().toISOString(),
+        },
       },
-    };
-
-    return NextResponse.json(result, {
-      headers: {
-        'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800',
-      },
-    });
+      { headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800' } }
+    );
   } catch (err) {
     console.error('[api/map/demographics] error:', err);
     return NextResponse.json({ error: 'Failed to load demographics data' }, { status: 500 });

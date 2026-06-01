@@ -8,11 +8,11 @@ import { NextResponse } from 'next/server';
 import { getFacilities } from '@/app/lib/dataLoader';
 
 export const runtime = 'nodejs';
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const facilities = getFacilities();
+    const facilities = await getFacilities();
 
     // Tally by primary pollutant (first in the pollutants array)
     const byPollutant: Record<string, { count: number; totalEmissions: number; unit: string }> = {};

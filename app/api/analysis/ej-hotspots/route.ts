@@ -9,12 +9,12 @@ import { NextResponse } from 'next/server';
 import { getFacilityDemographics, getFacilities } from '@/app/lib/dataLoader';
 
 export const runtime = 'nodejs';
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const demographics = getFacilityDemographics();
-    const facilities = getFacilities();
+    const demographics = await getFacilityDemographics();
+    const facilities = await getFacilities();
 
     // Build emissions lookup by facility_id
     const emissionsById: Record<string, { emissions_value: number; emissions_unit: string; type: string }> = {};

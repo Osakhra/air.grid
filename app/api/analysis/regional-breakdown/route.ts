@@ -8,7 +8,7 @@ import { NextResponse } from 'next/server';
 import { getFacilities } from '@/app/lib/dataLoader';
 
 export const runtime = 'nodejs';
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 type Region =
   | 'Northeast'
@@ -38,7 +38,7 @@ function assignRegion(lat: number, lng: number): Region {
 
 export async function GET() {
   try {
-    const facilities = getFacilities();
+    const facilities = await getFacilities();
 
     const regions: Record<Region, { totalEmissions: number; facilityCount: number; unit: string }> = {
       Northeast: { totalEmissions: 0, facilityCount: 0, unit: '' },

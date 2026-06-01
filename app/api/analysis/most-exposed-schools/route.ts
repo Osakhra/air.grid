@@ -8,12 +8,12 @@ import { NextResponse } from 'next/server';
 import { getSchoolExposure, getSchools } from '@/app/lib/dataLoader';
 
 export const runtime = 'nodejs';
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const exposure = getSchoolExposure();
-    const schools = getSchools();
+    const exposure = await getSchoolExposure();
+    const schools = await getSchools();
 
     // Build a lookup: school_id -> { level, enrollment }
     const schoolMeta: Record<string, { level: string; enrollment: number | null }> = {};

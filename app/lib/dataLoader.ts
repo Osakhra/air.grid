@@ -1,21 +1,23 @@
 /**
  * app/lib/dataLoader.ts
  * =====================
- * Server-side only. Reads and module-level caches the large GeoJSON files so
- * repeated API route calls within the same process do not re-parse 90 MB of JSON.
+ * Server-side only. Fetches GeoJSON files from /public/data/ (served as static
+ * CDN assets) and caches the parsed result at the Promise level so concurrent
+ * first requests within a function instance share one in-flight fetch rather
+ * than each kicking off their own.
  *
- * Single source of truth: every API route that needs raw features imports from
- * here. No data-loading logic is duplicated.
+ * Why fetch() instead of fs.readFileSync():
+ *   On Vercel, /public/ is a CDN-only directory — serverless function bundles
+ *   do not include those files and fs reads from that path throw ENOENT.
+ *   Fetching via HTTP hits the CDN, avoids bundling 300 MB of GeoJSON into
+ *   functions, and stays within the 250 MB unzipped function limit.
  *
- * IMPORTANT: This module uses `fs` — it must only run in Node.js server context
- * (API routes, Server Components reading via fetch). Never import into client
- * components.
+ * Never import this into client components.
  */
 
-import fs from 'fs';
-import path from 'path';
-
-const DATA_DIR = path.join(process.cwd(), 'public', 'data');
+const BASE_URL = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -101,56 +103,52 @@ export interface FacilityDemographicsProps {
   source: string;
 }
 
-// ── Module-level cache (survives across requests in same process) ──────────────
+// ── Fetch helper ───────────────────────────────────────────────────────────────
 
-let _facilities: GeoFeatureCollection<FacilityProps> | null = null;
-let _sensors: GeoFeatureCollection<SensorProps> | null = null;
-let _schools: GeoFeatureCollection<SchoolProps> | null = null;
-let _schoolExposure: GeoFeatureCollection<SchoolExposureProps> | null = null;
-let _facilityDemographics: GeoFeatureCollection<FacilityDemographicsProps> | null = null;
-
-function readJson<T>(filePath: string): GeoFeatureCollection<T> {
-  const raw = fs.readFileSync(filePath, 'utf-8');
-  return JSON.parse(raw) as GeoFeatureCollection<T>;
+async function fetchGeoJson<T>(publicPath: string): Promise<GeoFeatureCollection<T>> {
+  const url = `${BASE_URL}${publicPath}`;
+  const res = await fetch(url, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`GeoJSON fetch failed: ${url} → HTTP ${res.status}`);
+  return res.json() as Promise<GeoFeatureCollection<T>>;
 }
+
+// ── Promise-level module cache ─────────────────────────────────────────────────
+// Storing the Promise (not the resolved value) means concurrent first requests
+// all await the same in-flight fetch instead of each starting their own.
+
+let _facilities: Promise<GeoFeatureCollection<FacilityProps>> | null = null;
+let _sensors: Promise<GeoFeatureCollection<SensorProps>> | null = null;
+let _schools: Promise<GeoFeatureCollection<SchoolProps>> | null = null;
+let _schoolExposure: Promise<GeoFeatureCollection<SchoolExposureProps>> | null = null;
+let _facilityDemographics: Promise<GeoFeatureCollection<FacilityDemographicsProps>> | null = null;
 
 // ── Public loaders ─────────────────────────────────────────────────────────────
 
-export function getFacilities(): GeoFeatureCollection<FacilityProps> {
-  if (!_facilities) {
-    _facilities = readJson<FacilityProps>(path.join(DATA_DIR, 'facilities.geojson'));
-  }
+export function getFacilities(): Promise<GeoFeatureCollection<FacilityProps>> {
+  if (!_facilities) _facilities = fetchGeoJson<FacilityProps>('/data/facilities.geojson');
   return _facilities;
 }
 
-export function getSensors(): GeoFeatureCollection<SensorProps> {
-  if (!_sensors) {
-    _sensors = readJson<SensorProps>(path.join(DATA_DIR, 'sensors.geojson'));
-  }
+export function getSensors(): Promise<GeoFeatureCollection<SensorProps>> {
+  if (!_sensors) _sensors = fetchGeoJson<SensorProps>('/data/sensors.geojson');
   return _sensors;
 }
 
-export function getSchools(): GeoFeatureCollection<SchoolProps> {
-  if (!_schools) {
-    _schools = readJson<SchoolProps>(path.join(DATA_DIR, 'schools.geojson'));
-  }
+export function getSchools(): Promise<GeoFeatureCollection<SchoolProps>> {
+  if (!_schools) _schools = fetchGeoJson<SchoolProps>('/data/schools.geojson');
   return _schools;
 }
 
-export function getSchoolExposure(): GeoFeatureCollection<SchoolExposureProps> {
-  if (!_schoolExposure) {
-    _schoolExposure = readJson<SchoolExposureProps>(
-      path.join(DATA_DIR, 'joins', 'school_exposure.geojson')
-    );
-  }
+export function getSchoolExposure(): Promise<GeoFeatureCollection<SchoolExposureProps>> {
+  if (!_schoolExposure)
+    _schoolExposure = fetchGeoJson<SchoolExposureProps>('/data/joins/school_exposure.geojson');
   return _schoolExposure;
 }
 
-export function getFacilityDemographics(): GeoFeatureCollection<FacilityDemographicsProps> {
-  if (!_facilityDemographics) {
-    _facilityDemographics = readJson<FacilityDemographicsProps>(
-      path.join(DATA_DIR, 'joins', 'facility_demographics.geojson')
+export function getFacilityDemographics(): Promise<GeoFeatureCollection<FacilityDemographicsProps>> {
+  if (!_facilityDemographics)
+    _facilityDemographics = fetchGeoJson<FacilityDemographicsProps>(
+      '/data/joins/facility_demographics.geojson'
     );
-  }
   return _facilityDemographics;
 }
