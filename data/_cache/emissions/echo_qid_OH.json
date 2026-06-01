@@ -1,0 +1,17 @@
+{
+"Results":{
+"Message":"Success",
+"QueryRows":"10919",
+"IndianCountryRows":"0",
+"SVRows":"11",
+"CVRows":"125",
+"V3Rows":"339",
+"FEARows":"120",
+"InfFEARows":"1028",
+"INSPRows":"2166",
+"FCERows":"1678",
+"TotalPenalties":"$68,302,162",
+"BadSystemIDs":null,
+"QueryID":"71"
+}
+}

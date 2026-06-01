@@ -1,0 +1,141 @@
+/* ───────────────────────────────────────────────────────────────────────────
+ * air.grid — globals.css
+ * Inherits the CastorUI design system (a *.castor subdomain). Backgrounds, text,
+ * borders, fonts, and the teal/purple accents are the base theme. air.grid is a
+ * subdomain, so per the Castor convention it MAY override accent vars only —
+ * here we keep teal as the chrome accent and add a standalone AQI data palette
+ * (NOT theme-able: the green→maroon scale is a recognized standard).
+ * Source of truth mirrors castor-ui/app/globals.css.
+ * ─────────────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Backgrounds */
+  --bg-primary:   #080B12;
+  --bg-secondary: #0D1117;
+  --bg-tertiary:  #131A24;
+  --bg-terminal:  #0A0E18;
+
+  /* Text */
+  --text-primary:   #D5DDE0;
+  --text-secondary: #B5BEC8;
+  --text-tertiary:  #A8B2BF;
+  --text-muted:     #7E8898;
+
+  /* Borders */
+  --border-subtle:  #1E2737;
+  --border-default: #2A3444;
+  --border-accent:  rgba(30, 158, 138, 0.4);
+
+  /* Accent — teal (chrome / brand) */
+  --accent-teal:      #1E9E8A;
+  --accent-teal-dim:  #17796A;
+  --accent-teal-glow: rgba(30, 158, 138, 0.4);
+
+  /* Accent — purple (secondary chrome) */
+  --accent-purple:        #5B2D8E;
+  --accent-purple-soft:   #B89CE0;
+  --accent-purple-bright: #9B6FD4;
+
+  /* Semantic */
+  --gold:        #C9922A;
+  --gold-bright: #E6B547;
+  --danger:      #E5484D;
+  --warn:        #F5A524;
+  --ok:          #46A758;
+
+  /* Status badges */
+  --status-shipped-bg:      rgba(30, 158, 138, 0.12);
+  --status-shipped-border:  rgba(30, 158, 138, 0.3);
+  --status-progress-bg:     rgba(91, 45, 142, 0.15);
+  --status-progress-border: rgba(91, 45, 142, 0.4);
+
+  --selection-bg: rgba(30, 158, 138, 0.3);
+
+  /* RGB channels (space-separated) for Tailwind opacity modifiers */
+  --bg-primary-rgb:           8 11 18;
+  --bg-secondary-rgb:         13 17 23;
+  --bg-tertiary-rgb:          19 26 36;
+  --accent-teal-rgb:          30 158 138;
+  --accent-purple-bright-rgb: 155 111 212;
+
+  /* ── AQI DATA PALETTE (project-specific, NOT theme-reactive) ──
+   * Standard US EPA AQI categories. Used by the map/legend/charts only —
+   * never for chrome. Do not swap these for brand colors. */
+  --aqi-good:       #46A758;  /* 0–50    */
+  --aqi-moderate:   #E6B547;  /* 51–100  */
+  --aqi-sensitive:  #F5A524;  /* 101–150 */
+  --aqi-unhealthy:  #E5484D;  /* 151–200 */
+  --aqi-veryunhealthy: #9B6FD4; /* 201–300 (purple, conveniently on-brand) */
+  --aqi-hazardous:  #7E2230;  /* 301+    */
+
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg-primary:   #FFFFFF;
+  --bg-secondary: #F3F4F6;
+  --bg-tertiary:  #E5E7EB;
+  --bg-terminal:  #F3F4F6;
+  --text-primary:   #111827;
+  --text-secondary: #374151;
+  --text-tertiary:  #4B5563;
+  --text-muted:     #9CA3AF;
+  --border-subtle:  #E5E7EB;
+  --border-default: #D1D5DB;
+  --border-accent:  rgba(5, 150, 105, 0.5);
+  --accent-teal:      #059669;
+  --accent-teal-dim:  #047857;
+  --accent-teal-glow: rgba(5, 150, 105, 0.35);
+  --accent-purple-soft:   #7B5CB5;
+  --accent-purple-bright: #7B52B8;
+  --gold: #B07918;  --gold-bright: #C9922A;
+  --danger: #DC2626; --warn: #D97706; --ok: #16A34A;
+  --bg-primary-rgb: 255 255 255;
+  --bg-secondary-rgb: 243 244 246;
+  --bg-tertiary-rgb: 229 231 235;
+  color-scheme: light;
+}
+
+::selection { background: var(--selection-bg); }
+
+@layer base {
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Outfit', system-ui, sans-serif;
+  }
+  h1, h2, h3, .font-display { font-family: 'Sora', system-ui, sans-serif; }
+}
+
+@layer components {
+  /* Mirrors CastorUI helpers so shared chrome (Nav/Footer/Card) drops in cleanly */
+  .section-container { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
+
+  .status-pill {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5
+           font-mono text-[11px] font-medium;
+  }
+  .status-shipped {
+    background: var(--status-shipped-bg);
+    border: 1px solid var(--status-shipped-border);
+    color: var(--accent-teal);
+  }
+  .status-progress {
+    background: var(--status-progress-bg);
+    border: 1px solid var(--status-progress-border);
+    color: var(--accent-purple-bright);
+  }
+
+  /* Live indicator — Castor's blink + InfraMap's live dot */
+  .live-dot {
+    @apply inline-block h-1.5 w-1.5 rounded-full;
+    background: var(--accent-teal);
+    animation: blink 1.2s step-end infinite;
+  }
+}

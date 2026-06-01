@@ -1,0 +1,19 @@
+# air.grid ETL dependencies — Python 3.11+
+# Install:  python -m pip install -r etl/requirements.txt
+# A virtualenv is recommended:  python -m venv .venv && source .venv/bin/activate
+
+# HTTP
+requests>=2.31
+httpx>=0.27            # async pulls for the multi-source sensor ingestion
+
+# Data wrangling
+pandas>=2.2
+
+# Geospatial (geopandas pulls in shapely, pyproj, fiona)
+geopandas>=0.14
+shapely>=2.0
+pyproj>=3.6            # projected CRS (EPSG:5070) for distance-correct joins
+
+# Config / utilities
+python-dotenv>=1.0     # read .env.local in standalone ETL scripts
+tqdm>=4.66             # progress bars on long ingests

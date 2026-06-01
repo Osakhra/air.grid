@@ -1,0 +1,42 @@
+# ── Secrets ───────────────────────────────────────────────────────────────────
+.env
+.env.local
+.env*.local
+# (.env.example IS tracked — it has no values)
+
+# ── Node / Next.js ──────────────────────────────────────────────────────────────
+node_modules/
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# ── Python ───────────────────────────────────────────────────────────────────────
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# ── Generated data ────────────────────────────────────────────────────────────────
+# Live tables regenerate hourly via the scheduled function — do NOT commit them.
+data/sensors.geojson
+data/wind.geojson
+# Static tables (facilities, schools, demographics) and /data/joins ARE committed
+# so the deployed site and other viewers have data without re-running the ETL.
+# If any committed file exceeds ~50MB, move it to Git LFS instead of ignoring it.
+# Keep tracked: data/schema.contract.json, data/facilities.geojson,
+#               data/schools.geojson, data/demographics.geojson, data/joins/*
+
+# ── OS / editor ─────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# ── Logs ──────────────────────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*

@@ -1,0 +1,413 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "frozen_at": "2026-06-01T00:00:00Z",
+    "frozen_by": "schema-keeper",
+    "coordinate_system": "WGS84 decimal degrees (EPSG:4326)",
+    "timestamp_format": "ISO 8601 UTC (e.g. 2026-06-01T12:00:00Z)",
+    "output_format": "GeoJSON FeatureCollection — one file per table at /data/{table}.geojson",
+    "rules": [
+      "Every feature MUST carry a non-empty 'source' string.",
+      "lat/lng are WGS84 decimal degrees stored in GeoJSON geometry (Point) AND as properties for convenience.",
+      "All timestamps are ISO 8601 UTC strings.",
+      "Fields marked required:true must be present and non-null on every feature.",
+      "Fields marked required:false may be omitted or null; the UI must handle absence gracefully.",
+      "No field outside this contract may be added without an approved schema-change request in /STATUS.md.",
+      "Silent field additions are rejected by the qa-integrator."
+    ]
+  },
+
+  "tables": {
+
+    "facilities": {
+      "description": "Industrial emission sources from EPA ECHO / FRS / TRI / GHGRP.",
+      "output_file": "/data/facilities.geojson",
+      "geometry": "Point",
+      "fields": {
+        "id": {
+          "type": "string",
+          "required": true,
+          "description": "Stable unique identifier for the facility. Prefer EPA FRS Registry ID; fall back to a source-prefixed synthetic key (e.g. 'TRI-12345')."
+        },
+        "name": {
+          "type": "string",
+          "required": true,
+          "description": "Facility name as reported by the source."
+        },
+        "lat": {
+          "type": "number",
+          "required": true,
+          "units": "decimal degrees, WGS84",
+          "description": "Latitude of facility centroid, mirrored from GeoJSON geometry for convenience."
+        },
+        "lng": {
+          "type": "number",
+          "required": true,
+          "units": "decimal degrees, WGS84",
+          "description": "Longitude of facility centroid, mirrored from GeoJSON geometry for convenience."
+        },
+        "type": {
+          "type": "string",
+          "required": true,
+          "description": "Facility/industry type as reported by source (e.g. 'Petroleum Refinery', 'Power Plant'). Use the source's own category string; do not normalise."
+        },
+        "operator": {
+          "type": "string",
+          "required": false,
+          "description": "Name of the operating company or owner. May be null if not provided by source."
+        },
+        "pollutants": {
+          "type": "array",
+          "items": "string",
+          "required": true,
+          "description": "List of pollutant names reported for this facility (e.g. ['CO2', 'NOx', 'PM2.5']). At least one element required."
+        },
+        "emissions_value": {
+          "type": "number",
+          "required": true,
+          "description": "Total reported emissions quantity for the primary/largest pollutant in this record. Used to size map points."
+        },
+        "emissions_unit": {
+          "type": "string",
+          "required": true,
+          "description": "Unit for emissions_value (e.g. 'tons/year', 'kg/year'). Must be consistent per source; note the unit in source docs."
+        },
+        "year": {
+          "type": "integer",
+          "required": true,
+          "description": "Reporting year for the emissions figures (e.g. 2023)."
+        },
+        "source": {
+          "type": "string",
+          "required": true,
+          "description": "Short identifier for the data source (e.g. 'EPA-TRI-2023', 'EPA-GHGRP-2022'). Surfaced in the UI provenance tooltip."
+        }
+      }
+    },
+
+    "sensors": {
+      "description": "Live air-quality sensor readings from AirNow, PurpleAir, and OpenAQ.",
+      "output_file": "/data/sensors.geojson",
+      "geometry": "Point",
+      "refresh": "hourly via Vercel cron",
+      "fields": {
+        "id": {
+          "type": "string",
+          "required": true,
+          "description": "Stable unique sensor/station identifier. Use the source's own station ID, prefixed by source (e.g. 'airnow-840060370002', 'purpleair-12345')."
+        },
+        "lat": {
+          "type": "number",
+          "required": true,
+          "units": "decimal degrees, WGS84",
+          "description": "Sensor latitude, mirrored from GeoJSON geometry."
+        },
+        "lng": {
+          "type": "number",
+          "required": true,
+          "units": "decimal degrees, WGS84",
+          "description": "Sensor longitude, mirrored from GeoJSON geometry."
+        },
+        "aqi": {
+          "type": "number",
+          "required": false,
+          "description": "EPA Air Quality Index (0–500+). Null if the source does not provide AQI directly (e.g. raw PurpleAir). Do not fabricate; leave null."
+        },
+        "pm25": {
+          "type": "number",
+          "required": false,
+          "units": "µg/m³",
+          "description": "PM2.5 concentration. For PurpleAir, apply the EPA correction factor and note it in source. Null if not measured."
+        },
+        "o3": {
+          "type": "number",
+          "required": false,
+          "units": "ppb",
+          "description": "Ozone (O3) concentration in parts per billion. Null if not measured."
+        },
+        "observed_at": {
+          "type": "string",
+          "required": true,
+          "description": "ISO 8601 UTC timestamp of the reading (e.g. '2026-06-01T14:00:00Z'). Bound to the live-header display."
+        },
+        "source": {
+          "type": "string",
+          "required": true,
+          "description": "Short source identifier (e.g. 'airnow', 'purpleair-epa-corrected', 'openaq'). Surfaced in hover card."
+        }
+      }
+    },
+
+    "schools": {
+      "description": "K-12 schools and college/university campuses from NCES and IPEDS.",
+      "output_file": "/data/schools.geojson",
+      "geometry": "Point",
+      "fields": {
+        "id": {
+          "type": "string",
+          "required": true,
+          "description": "Stable unique identifier. Use NCES NCESSCH for K-12 or IPEDS UNITID for colleges, prefixed by source (e.g. 'nces-123456789012', 'ipeds-100654')."
+        },
+        "name": {
+          "type": "string",
+          "required": true,
+          "description": "Institution name as provided by NCES/IPEDS."
+        },
+        "lat": {
+          "type": "number",
+          "required": true,
+          "units": "decimal degrees, WGS84",
+          "description": "Campus/school latitude, mirrored from GeoJSON geometry."
+        },
+        "lng": {
+          "type": "number",
+          "required": true,
+          "units": "decimal degrees, WGS84",
+          "description": "Campus/school longitude, mirrored from GeoJSON geometry."
+        },
+        "level": {
+          "type": "string",
+          "required": true,
+          "enum": ["k12", "college"],
+          "description": "Education level. Exactly one of 'k12' or 'college'. Used for layer filtering and the per-campus hook."
+        },
+        "enrollment": {
+          "type": "integer",
+          "required": false,
+          "description": "Student enrollment count. Used to size map points. Null if not available."
+        },
+        "source": {
+          "type": "string",
+          "required": true,
+          "description": "Short source identifier and vintage (e.g. 'nces-2022-23', 'ipeds-2022-23')."
+        }
+      }
+    },
+
+    "demographics": {
+      "description": "Census tract-level demographics from U.S. Census ACS. One feature per tract centroid.",
+      "output_file": "/data/demographics.geojson",
+      "geometry": "Point",
+      "note": "Point geometry uses tract centroid. geoid is the primary join key for spatial operations.",
+      "fields": {
+        "geoid": {
+          "type": "string",
+          "required": true,
+          "description": "11-digit Census FIPS tract identifier (state 2 + county 3 + tract 6, e.g. '06037137000'). Primary join key for geo-matcher."
+        },
+        "lat": {
+          "type": "number",
+          "required": true,
+          "units": "decimal degrees, WGS84",
+          "description": "Tract centroid latitude, mirrored from GeoJSON geometry."
+        },
+        "lng": {
+          "type": "number",
+          "required": true,
+          "units": "decimal degrees, WGS84",
+          "description": "Tract centroid longitude, mirrored from GeoJSON geometry."
+        },
+        "population": {
+          "type": "integer",
+          "required": true,
+          "description": "Total population estimate for the tract (ACS table B01003)."
+        },
+        "median_income": {
+          "type": "number",
+          "required": false,
+          "units": "USD",
+          "description": "Median household income in the past 12 months (ACS table B19013). Null if suppressed by Census."
+        },
+        "pct_minority": {
+          "type": "number",
+          "required": true,
+          "units": "fraction 0.0–1.0",
+          "description": "Fraction of population identifying as non-white alone (derived from ACS B02001). Used for the environmental-justice overlay."
+        },
+        "source": {
+          "type": "string",
+          "required": true,
+          "description": "Source and ACS vintage (e.g. 'census-acs5-2022')."
+        }
+      }
+    },
+
+    "wind": {
+      "description": "Wind speed and direction grid cells from NWS api.weather.gov.",
+      "output_file": "/data/wind.geojson",
+      "geometry": "Point",
+      "refresh": "hourly via Vercel cron (same schedule as sensors)",
+      "fields": {
+        "cell_id": {
+          "type": "string",
+          "required": true,
+          "description": "Unique grid cell identifier. Use NWS grid point reference (e.g. 'TOP-32-81') or a synthetic 'lat_lng' key if NWS does not provide a stable id."
+        },
+        "lat": {
+          "type": "number",
+          "required": true,
+          "units": "decimal degrees, WGS84",
+          "description": "Grid cell centre latitude, mirrored from GeoJSON geometry."
+        },
+        "lng": {
+          "type": "number",
+          "required": true,
+          "units": "decimal degrees, WGS84",
+          "description": "Grid cell centre longitude, mirrored from GeoJSON geometry."
+        },
+        "speed_mps": {
+          "type": "number",
+          "required": true,
+          "units": "m/s",
+          "description": "Wind speed in metres per second."
+        },
+        "dir_deg": {
+          "type": "number",
+          "required": true,
+          "units": "degrees, meteorological (0=N, 90=E, 180=S, 270=W)",
+          "description": "Wind direction in meteorological degrees. Used to render drift arrows and the optional downwind flag."
+        },
+        "observed_at": {
+          "type": "string",
+          "required": true,
+          "description": "ISO 8601 UTC timestamp of the wind observation (e.g. '2026-06-01T14:00:00Z')."
+        },
+        "source": {
+          "type": "string",
+          "required": true,
+          "description": "Source identifier (e.g. 'nws-api-weather-gov')."
+        }
+      }
+    },
+
+    "joins/school_exposure": {
+      "description": "Derived join: for each school, its nearest emitters and nearest sensor AQI. Produced by geo-matcher in Phase 2.",
+      "output_file": "/data/joins/school_exposure.geojson",
+      "geometry": "Point",
+      "note": "Geometry is the school point. All join results are in properties. Do not mutate schools.geojson — this is a separate derived file.",
+      "fields": {
+        "school_id": {
+          "type": "string",
+          "required": true,
+          "description": "Foreign key — matches schools.id."
+        },
+        "school_name": {
+          "type": "string",
+          "required": true,
+          "description": "Denormalised for display convenience."
+        },
+        "lat": {
+          "type": "number",
+          "required": true,
+          "units": "decimal degrees, WGS84"
+        },
+        "lng": {
+          "type": "number",
+          "required": true,
+          "units": "decimal degrees, WGS84"
+        },
+        "nearest_facility_ids": {
+          "type": "array",
+          "items": "string",
+          "required": true,
+          "description": "IDs of the N nearest facilities within radius R (parameters documented in ORCHESTRATION.md). Empty array if none within radius."
+        },
+        "nearest_facility_distances_m": {
+          "type": "array",
+          "items": "number",
+          "required": true,
+          "units": "metres",
+          "description": "Distances to each facility in nearest_facility_ids, same order."
+        },
+        "max_emissions_nearby": {
+          "type": "number",
+          "required": false,
+          "description": "Max emissions_value among nearby facilities. Null if no facilities within radius."
+        },
+        "nearest_aqi": {
+          "type": "number",
+          "required": false,
+          "description": "AQI from the nearest sensor. Null if no sensor within radius or sensor has no AQI."
+        },
+        "nearest_sensor_id": {
+          "type": "string",
+          "required": false,
+          "description": "ID of the nearest sensor used for nearest_aqi."
+        },
+        "nearest_sensor_distance_m": {
+          "type": "number",
+          "required": false,
+          "units": "metres",
+          "description": "Distance to nearest_sensor_id."
+        },
+        "is_downwind": {
+          "type": "boolean",
+          "required": false,
+          "description": "Optional flag: true if a facility is within radius and the wind puts the school downwind of it. Null if wind data unavailable or no nearby facility."
+        },
+        "source": {
+          "type": "string",
+          "required": true,
+          "description": "Build provenance string (e.g. 'geo-matcher-2026-06-01')."
+        }
+      }
+    },
+
+    "joins/facility_demographics": {
+      "description": "Derived join: for each facility, the overlapping or nearest Census tract demographics. Produced by geo-matcher in Phase 2.",
+      "output_file": "/data/joins/facility_demographics.geojson",
+      "geometry": "Point",
+      "note": "Geometry is the facility point. Demographics fields are joined from the intersecting or nearest tract.",
+      "fields": {
+        "facility_id": {
+          "type": "string",
+          "required": true,
+          "description": "Foreign key — matches facilities.id."
+        },
+        "facility_name": {
+          "type": "string",
+          "required": true,
+          "description": "Denormalised for display convenience."
+        },
+        "lat": {
+          "type": "number",
+          "required": true,
+          "units": "decimal degrees, WGS84"
+        },
+        "lng": {
+          "type": "number",
+          "required": true,
+          "units": "decimal degrees, WGS84"
+        },
+        "geoid": {
+          "type": "string",
+          "required": true,
+          "description": "Census tract GEOID of the intersecting/nearest tract."
+        },
+        "population": {
+          "type": "integer",
+          "required": true,
+          "description": "Tract total population from demographics table."
+        },
+        "median_income": {
+          "type": "number",
+          "required": false,
+          "units": "USD",
+          "description": "Tract median household income. Null if Census-suppressed."
+        },
+        "pct_minority": {
+          "type": "number",
+          "required": true,
+          "units": "fraction 0.0–1.0",
+          "description": "Tract pct_minority from demographics table."
+        },
+        "source": {
+          "type": "string",
+          "required": true,
+          "description": "Build provenance string (e.g. 'geo-matcher-2026-06-01')."
+        }
+      }
+    }
+
+  }
+}
