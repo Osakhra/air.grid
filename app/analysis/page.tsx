@@ -27,33 +27,19 @@ import { RegionalChart } from '@/app/components/analysis/RegionalChart';
 import { StatCard } from '@/app/components/analysis/StatCard';
 import { formatObservedAt, fmtNum, fmtEmissions } from '@/app/components/analysis/aqiUtils';
 
-// Force server-rendering on every request so the API routes are live when
-// the page renders. Static pre-generation at build time has no running server,
-// which causes all self-fetches to ECONNREFUSED and every section to show empty.
+// Pre-computed JSON files written by scripts/precompute-analysis.js at build time.
+// Importing directly avoids any HTTP self-fetch (which 401s on Vercel's
+// deployment-protection middleware when using VERCEL_URL).
+import summaryJson      from '@/app/lib/analysis-data/summary.json';
+import aqiJson          from '@/app/lib/analysis-data/aqi-leaderboard.json';
+import topPollutorsJson from '@/app/lib/analysis-data/top-polluters.json';
+import pollutantJson    from '@/app/lib/analysis-data/pollutant-breakdown.json';
+import schoolsJson      from '@/app/lib/analysis-data/most-exposed-schools.json';
+import ejJson           from '@/app/lib/analysis-data/ej-hotspots.json';
+import regionalJson     from '@/app/lib/analysis-data/regional-breakdown.json';
+
+// force-dynamic so Date.now() (used for sensor-staleness check) runs at request time.
 export const dynamic = 'force-dynamic';
-
-// ── Fetch helpers (server-side) ───────────────────────────────────────────────
-
-const BASE_URL =
-  process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000';
-
-async function fetchJson<T>(path: string): Promise<T | null> {
-  try {
-    const res = await fetch(`${BASE_URL}${path}`, {
-      next: { revalidate: 3600 },
-    });
-    if (!res.ok) {
-      console.error(`[analysis/page] ${path} → HTTP ${res.status}`);
-      return null;
-    }
-    return (await res.json()) as T;
-  } catch (err) {
-    console.error(`[analysis/page] ${path} error:`, err);
-    return null;
-  }
-}
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -161,17 +147,13 @@ function Section({
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 export default async function AnalysisPage() {
-  // Fetch all sections in parallel
-  const [summary, aqiPayload, topPolluters, pollutantBreakdown, exposedSchools, ejHotspots, regional] =
-    await Promise.all([
-      fetchJson<Summary>('/api/analysis/summary'),
-      fetchJson<AqiLeaderboardPayload>('/api/analysis/aqi-leaderboard'),
-      fetchJson<FacilityRow[]>('/api/analysis/top-polluters'),
-      fetchJson<PollutantRow[]>('/api/analysis/pollutant-breakdown'),
-      fetchJson<SchoolRow[]>('/api/analysis/most-exposed-schools'),
-      fetchJson<EjRow[]>('/api/analysis/ej-hotspots'),
-      fetchJson<RegionRow[]>('/api/analysis/regional-breakdown'),
-    ]);
+  const summary          = summaryJson      as unknown as Summary;
+  const aqiPayload       = aqiJson          as unknown as AqiLeaderboardPayload;
+  const topPolluters     = topPollutorsJson as unknown as FacilityRow[];
+  const pollutantBreakdown = pollutantJson  as unknown as PollutantRow[];
+  const exposedSchools   = schoolsJson      as unknown as SchoolRow[];
+  const ejHotspots       = ejJson           as unknown as EjRow[];
+  const regional         = regionalJson     as unknown as RegionRow[];
 
   // Freshness check on sensor data
   const sensorAge = summary?.latestObservedAt
