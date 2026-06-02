@@ -53,18 +53,14 @@ export default function AboutPage() {
               This just puts it in one place.
             </p>
 
-            <p>
-              Built by{' '}
-              <a
-                href="https://andrewcastor.dev"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent-teal underline underline-offset-2 hover:text-text-primary transition-colors"
-              >
-                andrewcastor.dev
-              </a>{' '}
-              — for anyone who wants to see more.
-            </p>
+            <a
+              href="https://andrewcastor.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-md border border-accent-teal px-4 py-2 font-mono text-[13px] text-accent-teal transition-colors hover:bg-accent-teal hover:text-bg-primary"
+            >
+              View my portfolio →
+            </a>
 
           </div>
 
