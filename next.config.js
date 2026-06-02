@@ -4,6 +4,19 @@
 // static export cannot host. Deploy as a normal Next.js app on Vercel.
 const nextConfig = {
   reactStrictMode: true,
+  // Exclude large build-time and client-only packages from server function traces.
+  // @next/swc-* platform binaries (~130 MB each) are build tools, not runtime deps.
+  // @arcgis/core and @loaders.gl are transitive deps of deck.gl used only client-side.
+  experimental: {
+    outputFileTracingExcludes: {
+      '*': [
+        'node_modules/@next/swc-*/**/*',
+        'node_modules/@arcgis/**/*',
+        'node_modules/@loaders.gl/**/*',
+        'node_modules/maplibre-gl/dist/*.map',
+      ],
+    },
+  },
   transpilePackages: [
     'deck.gl',
     '@deck.gl/core',
