@@ -1,20 +1,8 @@
 import { NextResponse } from 'next/server';
+import data from '@/app/lib/analysis-data/regional-breakdown.json';
 
-export const dynamic = 'force-dynamic';
-
-const BASE_URL = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+export const dynamic = 'force-static';
 
 export async function GET() {
-  try {
-    const res = await fetch(`${BASE_URL}/analysis/regional-breakdown.json`, {
-      next: { revalidate: 86400 },
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return NextResponse.json(await res.json());
-  } catch (err) {
-    console.error('[analysis/regional-breakdown]', err);
-    return NextResponse.json({ error: String(err) }, { status: 500 });
-  }
+  return NextResponse.json(data);
 }

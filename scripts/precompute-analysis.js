@@ -3,11 +3,11 @@
  * ================================
  * Runs at build time (node, not serverless). Reads the committed GeoJSON
  * files from public/data/ with fs, computes every analysis aggregation,
- * and writes small JSON files to public/analysis/.
+ * and writes small JSON files to app/lib/analysis-data/.
  *
- * API routes then serve these tiny files instead of downloading and
- * parsing 90-184 MB of GeoJSON on every request inside a serverless
- * function, which consistently hits Vercel Hobby's 10-second limit.
+ * API routes import these files directly (resolveJsonModule) and export
+ * them as force-static route handlers — no HTTP self-fetch, no 401 from
+ * Vercel deployment protection, no serverless function needed at runtime.
  */
 
 'use strict';
@@ -16,9 +16,13 @@ const fs   = require('fs');
 const path = require('path');
 
 const DATA = path.join(__dirname, '..', 'public', 'data');
-const OUT  = path.join(__dirname, '..', 'public', 'analysis');
+// Write to app/lib/analysis-data/ so routes can import directly (no HTTP self-fetch).
+// Also write to public/analysis/ so the files are accessible as CDN assets if needed.
+const OUT_LIB = path.join(__dirname, '..', 'app', 'lib', 'analysis-data');
+const OUT_PUB = path.join(__dirname, '..', 'public', 'analysis');
 
-fs.mkdirSync(OUT, { recursive: true });
+fs.mkdirSync(OUT_LIB, { recursive: true });
+fs.mkdirSync(OUT_PUB, { recursive: true });
 
 function read(relPath) {
   const abs = path.join(DATA, relPath);
@@ -27,9 +31,11 @@ function read(relPath) {
 }
 
 function write(name, data) {
-  fs.writeFileSync(path.join(OUT, name), JSON.stringify(data), 'utf-8');
-  const kb = Math.round(Buffer.byteLength(JSON.stringify(data)) / 1024);
-  console.log(`  wrote   public/analysis/${name} (${kb} KB)`);
+  const json = JSON.stringify(data);
+  fs.writeFileSync(path.join(OUT_LIB, name), json, 'utf-8');
+  fs.writeFileSync(path.join(OUT_PUB, name), json, 'utf-8');
+  const kb = Math.round(Buffer.byteLength(json) / 1024);
+  console.log(`  wrote   app/lib/analysis-data/${name} + public/analysis/${name} (${kb} KB)`);
 }
 
 console.log('\nprecompute-analysis: loading GeoJSON files…');
