@@ -81,6 +81,7 @@ export default function DeckMap() {
   const [loading, setLoading]       = useState(true);
 
   const sensorPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [zoom, setZoom] = useState(INITIAL_VIEW_STATE.zoom);
 
   // ── Detect mobile ────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -227,22 +228,32 @@ export default function DeckMap() {
     );
   }
 
-  // Facilities layer
+  // Facilities layer — zoom-tiered radius and opacity.
+  // At national zoom the circles read as a dot pattern; emissions encoding
+  // only activates when zoomed in enough to act on it.
   if (visibility.facilities && facilities.length > 0) {
+    const facRadius =
+      zoom <= 4 ? () => 4 :
+      zoom <= 7 ? () => 6 :
+      (d: FacilityFeature) => facilityRadius(d.properties.emissions_value ?? 0);
+    const facOpacity   = zoom <= 4 ? 0.5 : zoom <= 7 ? 0.6 : 0.75;
+    const facMinPixels = zoom <= 4 ? 4   : zoom <= 7 ? 6   : 2;
+    const facMaxPixels = zoom <= 4 ? 4   : zoom <= 7 ? 6   : 13;
+
     deckLayers.push(
       new ScatterplotLayer<FacilityFeature>({
         id: 'facilities-layer',
         data: facilities,
         getPosition: (d) => d.geometry.coordinates,
-        getRadius: (d) => facilityRadius(d.properties.emissions_value ?? 0),
+        getRadius: facRadius,
         radiusUnits: 'pixels',
-        radiusMinPixels: 2,
-        radiusMaxPixels: 13,
+        radiusMinPixels: facMinPixels,
+        radiusMaxPixels: facMaxPixels,
         getFillColor: (d) => facilityPollutantColor(d.properties.pollutants ?? []),
         pickable: true,
-        opacity: 0.6,
+        opacity: facOpacity,
         stroked: false,
-        updateTriggers: { getFillColor: [], getRadius: [] },
+        updateTriggers: { getFillColor: [], getRadius: [zoom] },
       })
     );
   }
@@ -383,6 +394,7 @@ export default function DeckMap() {
         initialViewState={INITIAL_VIEW_STATE}
         controller={true}
         layers={deckLayers}
+        onViewStateChange={({ viewState }) => setZoom((viewState as { zoom: number }).zoom)}
         onHover={onHover}
         getCursor={({ isDragging, isHovering }) =>
           isDragging ? 'grabbing' : isHovering ? 'pointer' : 'grab'
