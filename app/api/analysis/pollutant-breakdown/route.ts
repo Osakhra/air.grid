@@ -1,28 +1,26 @@
-/**
- * GET /api/analysis/pollutant-breakdown
- * Groups facilities by primary pollutant and returns top 10 categories
- * by total reported emissions.
- */
-
 import { NextResponse } from 'next/server';
-import { getFacilities } from '@/app/lib/dataLoader';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
+const BASE_URL = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+
 export async function GET() {
   try {
-    const facilities = await getFacilities();
+    const res = await fetch(`${BASE_URL}/data/facilities.geojson`, {
+      next: { revalidate: 86400 },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const fc = await res.json();
 
-    // Tally by primary pollutant (first in the pollutants array)
     const byPollutant: Record<string, { count: number; totalEmissions: number; unit: string }> = {};
 
-    for (const f of facilities.features) {
-      const { pollutants, emissions_value, emissions_unit } = f.properties;
+    for (const f of fc.features ?? []) {
+      const { pollutants, emissions_value, emissions_unit } = f.properties ?? {};
       const primary =
-        Array.isArray(pollutants) && pollutants.length > 0
-          ? (pollutants[0] as string)
-          : 'Unknown';
+        Array.isArray(pollutants) && pollutants.length > 0 ? String(pollutants[0]) : 'Unknown';
 
       if (!byPollutant[primary]) {
         byPollutant[primary] = { count: 0, totalEmissions: 0, unit: emissions_unit ?? '' };
@@ -38,7 +36,7 @@ export async function GET() {
 
     return NextResponse.json(top10);
   } catch (err) {
-    console.error('[analysis/pollutant-breakdown] error:', err);
+    console.error('[analysis/pollutant-breakdown]', err);
     return NextResponse.json({ error: String(err) }, { status: 500 });
   }
 }

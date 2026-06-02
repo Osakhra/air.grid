@@ -1,71 +1,62 @@
-/**
- * GET /api/analysis/summary
- * Returns headline counts and averages derived from all data files.
- * Aggregated server-side; payload is tiny (~200 bytes).
- */
-
 import { NextResponse } from 'next/server';
-import {
-  getFacilities,
-  getSensors,
-  getSchools,
-  getSchoolExposure,
-} from '@/app/lib/dataLoader';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
+const BASE_URL = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+
 export async function GET() {
   try {
-    const facilities = await getFacilities();
-    const sensors = await getSensors();
-    const schools = await getSchools();
-    const exposure = await getSchoolExposure();
+    // Fetch all four files in parallel. Facilities/schools/exposure are static at
+    // deploy time and use the shared 24-hour cache. Sensors are live (no-store).
+    const [facRes, senRes, schRes, expRes] = await Promise.all([
+      fetch(`${BASE_URL}/data/facilities.geojson`,              { next: { revalidate: 86400 } }),
+      fetch(`${BASE_URL}/data/sensors.geojson`,                 { cache: 'no-store' }),
+      fetch(`${BASE_URL}/data/schools.geojson`,                 { next: { revalidate: 86400 } }),
+      fetch(`${BASE_URL}/data/joins/school_exposure.geojson`,   { next: { revalidate: 86400 } }),
+    ]);
 
-    const facilityCount = facilities.features.length;
-    const sensorCount = sensors.features.length;
-    const schoolCount = schools.features.length;
+    if (!facRes.ok) throw new Error(`facilities HTTP ${facRes.status}`);
+    if (!senRes.ok) throw new Error(`sensors HTTP ${senRes.status}`);
+    if (!schRes.ok) throw new Error(`schools HTTP ${schRes.status}`);
+    if (!expRes.ok) throw new Error(`school_exposure HTTP ${expRes.status}`);
 
-    // Sensors with a non-null AQI reading
-    const sensorsWithAqi = sensors.features.filter(
-      (f) => f.properties.aqi !== null && f.properties.aqi !== undefined
+    const [facilities, sensors, schools, exposure] = await Promise.all([
+      facRes.json(), senRes.json(), schRes.json(), expRes.json(),
+    ]);
+
+    const facilityCount  = (facilities.features ?? []).length;
+    const sensorCount    = (sensors.features ?? []).length;
+    const schoolCount    = (schools.features ?? []).length;
+
+    const sensorsWithAqi = (sensors.features ?? []).filter(
+      (f: any) => f.properties?.aqi != null,
     );
-    const avgAqi =
-      sensorsWithAqi.length > 0
-        ? Math.round(
-            sensorsWithAqi.reduce((sum, f) => sum + (f.properties.aqi as number), 0) /
-              sensorsWithAqi.length
-          )
-        : null;
+    const avgAqi = sensorsWithAqi.length > 0
+      ? Math.round(sensorsWithAqi.reduce((s: number, f: any) => s + f.properties.aqi, 0) / sensorsWithAqi.length)
+      : null;
+    const maxAqi = sensorsWithAqi.length > 0
+      ? Math.max(...sensorsWithAqi.map((f: any) => f.properties.aqi as number))
+      : null;
 
-    const maxAqi =
-      sensorsWithAqi.length > 0
-        ? Math.max(...sensorsWithAqi.map((f) => f.properties.aqi as number))
-        : null;
-
-    // Schools that have at least one nearby facility (nearest_facility_ids non-empty)
-    const schoolsNearEmitters = exposure.features.filter(
-      (f) =>
-        Array.isArray(f.properties.nearest_facility_ids) &&
-        f.properties.nearest_facility_ids.length > 0
+    const schoolsNearEmitters = (exposure.features ?? []).filter(
+      (f: any) => Array.isArray(f.properties?.nearest_facility_ids) && f.properties.nearest_facility_ids.length > 0,
     ).length;
 
-    // Schools flagged downwind
-    const schoolsDownwind = exposure.features.filter(
-      (f) => f.properties.is_downwind === true
+    const schoolsDownwind = (exposure.features ?? []).filter(
+      (f: any) => f.properties?.is_downwind === true,
     ).length;
 
-    // Timestamp of the most recent sensor observation (proxy for "live" freshness)
-    const latestObservedAt = sensors.features
-      .map((f) => f.properties.observed_at)
+    const latestObservedAt = (sensors.features ?? [])
+      .map((f: any) => f.properties?.observed_at)
       .filter(Boolean)
       .sort()
       .at(-1) ?? null;
 
-    const dataGeneratedAt =
-      (sensors._meta?.generated_at as string | undefined) ??
-      (sensors.metadata?.built_at as string | undefined) ??
-      null;
+    const dataGeneratedAt: string | null =
+      sensors._meta?.generated_at ?? sensors.metadata?.built_at ?? null;
 
     return NextResponse.json({
       facilityCount,
@@ -81,7 +72,7 @@ export async function GET() {
       sources: ['EPA-GHGRP-2022', 'EPA-ECHO-2024', 'AirNow', 'PurpleAir', 'OpenAQ', 'NCES', 'IPEDS'],
     });
   } catch (err) {
-    console.error('[analysis/summary] error:', err);
+    console.error('[analysis/summary]', err);
     return NextResponse.json({ error: String(err) }, { status: 500 });
   }
 }

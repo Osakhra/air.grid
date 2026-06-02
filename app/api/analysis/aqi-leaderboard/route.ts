@@ -1,42 +1,40 @@
-/**
- * GET /api/analysis/aqi-leaderboard
- * Returns top 20 sensor readings ordered by AQI descending (worst first).
- * Only includes sensors that have a non-null AQI value.
- */
-
 import { NextResponse } from 'next/server';
-import { getSensors } from '@/app/lib/dataLoader';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
+const BASE_URL = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+
 export async function GET() {
   try {
-    const sensors = await getSensors();
+    // Sensors are live — skip cache so we always get the latest baked file.
+    const res = await fetch(`${BASE_URL}/data/sensors.geojson`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const fc = await res.json();
 
-    const top20 = sensors.features
-      .filter((f) => f.properties.aqi !== null && f.properties.aqi !== undefined)
-      .sort((a, b) => (b.properties.aqi as number) - (a.properties.aqi as number))
+    const generatedAt: string | null =
+      fc._meta?.generated_at ?? fc.metadata?.built_at ?? null;
+
+    const top20 = (fc.features ?? [])
+      .filter((f: any) => f.properties?.aqi != null)
+      .sort((a: any, b: any) => b.properties.aqi - a.properties.aqi)
       .slice(0, 20)
-      .map((f) => ({
+      .map((f: any) => ({
         id: f.properties.id,
         lat: f.properties.lat,
         lng: f.properties.lng,
         aqi: f.properties.aqi,
-        pm25: f.properties.pm25,
-        o3: f.properties.o3,
+        pm25: f.properties.pm25 ?? null,
+        o3: f.properties.o3 ?? null,
         observed_at: f.properties.observed_at,
         source: f.properties.source,
       }));
 
-    const generatedAt =
-      (sensors._meta?.generated_at as string | undefined) ??
-      (sensors.metadata?.built_at as string | undefined) ??
-      null;
-
     return NextResponse.json({ data: top20, generatedAt });
   } catch (err) {
-    console.error('[analysis/aqi-leaderboard] error:', err);
+    console.error('[analysis/aqi-leaderboard]', err);
     return NextResponse.json({ error: String(err) }, { status: 500 });
   }
 }
