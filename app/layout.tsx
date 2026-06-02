@@ -34,14 +34,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=document.cookie.match(/(?:^|; )theme=([^;]*)/);document.documentElement.setAttribute('data-theme',t?t[1]:'dark');}catch(e){}})();`,
-          }}
-        />
-      </head>
+    <html lang="en" data-theme="dark">
       <body className="flex min-h-screen flex-col bg-bg-primary text-text-primary">
         <NetworkGrid />
         <Nav />

@@ -53,7 +53,22 @@ export default function MapTooltip({ tooltip }: Props) {
     ];
   } else if (object.kind === 'sensor') {
     const p = object.props;
-    title = p.id.replace(/^(airnow|purpleair|openaq)-/, '');
+    // AirNow IDs encode location: "airnow-NM-Albuquerque" → "Albuquerque, NM"
+    // PurpleAir/OpenAQ IDs are numeric: show "Sensor · {id}"
+    if (p.id.startsWith('airnow-')) {
+      const withoutPrefix = p.id.slice('airnow-'.length);
+      const dash = withoutPrefix.indexOf('-');
+      if (dash > -1) {
+        const state = withoutPrefix.slice(0, dash);
+        const area  = withoutPrefix.slice(dash + 1).replace(/_/g, ' ');
+        title = `${area}, ${state}`;
+      } else {
+        title = withoutPrefix;
+      }
+    } else {
+      const numericId = p.id.replace(/^(purpleair-epa-corrected|purpleair|openaq)-/, '');
+      title = `Sensor · ${numericId}`;
+    }
     rows = [
       { label: 'AQI',         value: p.aqi != null ? `${p.aqi} — ${aqiLabel(p.aqi)}` : null },
       { label: 'PM2.5',       value: p.pm25 != null ? `${p.pm25} µg/m³` : null },

@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { siteConfig, navLinks } from '@/data/site';
 import { MenuIcon, XIcon } from '@/components/icons/Icons';
-import ThemeToggle from '@/components/ui/ThemeToggle';
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
@@ -39,14 +38,10 @@ export default function Nav() {
               </Link>
             </li>
           ))}
-          <li>
-            <ThemeToggle />
-          </li>
         </ul>
 
-        {/* Mobile: theme toggle + hamburger */}
+        {/* Mobile: hamburger */}
         <div className="flex items-center gap-2 md:hidden">
-          <ThemeToggle />
           <button
             aria-label="Toggle menu"
             className="text-text-secondary"

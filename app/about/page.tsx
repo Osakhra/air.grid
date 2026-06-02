@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'About air.grid — a live U.S. air quality and industrial emissions atlas built on open government data.',
+    'air.grid — a one-day experiment in AI-assisted development, building a live U.S. air quality and emissions atlas in a single day.',
 };
 
 export default function AboutPage() {
@@ -14,7 +14,7 @@ export default function AboutPage() {
         {/* Header */}
         <div className="mb-12 border-b border-border-subtle pb-10">
           <p className="mb-3 font-mono text-[11px] uppercase tracking-widest text-accent-teal">
-            air.grid
+            air.andrewcastor.dev
           </p>
           <h1 className="font-display text-4xl font-bold tracking-tight text-text-primary">
             About this project
@@ -26,30 +26,44 @@ export default function AboutPage() {
           <div className="space-y-8 font-body text-base leading-relaxed text-text-secondary">
 
             <p>
-              <strong className="font-semibold text-text-primary">air.grid</strong> is a live atlas
-              of U.S. air quality, industrial emissions, and the schools and neighborhoods that sit
-              next to them. Every layer on the map is drawn from open government data — no
-              estimates, no interpolation. If a facility is there, it was reported to the EPA. If a
-              sensor reading is there, it came from an official or community monitoring network
-              within the last refresh cycle.
+              <code className="rounded bg-bg-secondary px-1.5 py-0.5 font-mono text-sm text-accent-teal">
+                air.grid
+              </code>{' '}
+              is a one-day challenge, started and finished on June 1, 2026. Built across three
+              Claude Code sessions — each running until usage limits reset — the goal was simple:
+              prove that a developer with the right AI tooling can go from an empty repo to a
+              deployed, data-rich atlas in a single day.
             </p>
 
             <p>
-              The project joins four data streams that are rarely seen together: real-time air
-              quality from AirNow, PurpleAir, and OpenAQ; industrial emissions reported under the
-              EPA Greenhouse Gas Reporting Program (GHGRP) and the EPA ECHO permit database;
-              school locations and enrollment from NCES and IPEDS; and Census tract demographics
-              from the American Community Survey. A geospatial proximity join links every school to
-              its nearest emitters and sensors, and flags campuses that are downwind of a reporting
-              facility within 10 km.
+              The project wasn&apos;t meant to be ambitious. It was meant to be fast. Schema design,
+              data ingestion, geospatial proximity joins, interactive frontend, QA, and deployment
+              were all orchestrated through Claude Code&apos;s multi-agent system. No shortcuts on
+              the data: 268,980 EPA-reported facilities, 15,897 live air quality sensors, 108,336
+              schools, real geospatial joins computed with scipy&apos;s cKDTree — not mocked, not
+              estimated.
             </p>
 
             <p>
-              The <strong className="font-semibold text-text-primary">Grid Analysis</strong> page
-              summarises what that join reveals: which facilities emit the most, which regions carry
-              the heaviest load, which schools are most exposed, and which majority-minority Census
-              tracts overlap with the highest-emitting sites. None of this is new information — it
-              is all public record. air.grid just puts it on one map.
+              The{' '}
+              <strong className="font-semibold text-text-primary">Grid Analysis</strong> page
+              surfaces what those joins reveal: which facilities emit the most, which regions carry
+              the heaviest load, which schools sit closest to emitters, and which majority-minority
+              Census tracts overlap with the highest-emitting sites. All of it is public record.
+              This just puts it in one place.
+            </p>
+
+            <p>
+              Built by{' '}
+              <a
+                href="https://andrewcastor.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent-teal underline underline-offset-2 hover:text-text-primary transition-colors"
+              >
+                andrewcastor.dev
+              </a>{' '}
+              — for anyone who wants to see more.
             </p>
 
           </div>
