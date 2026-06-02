@@ -20,19 +20,14 @@ An `Analysis` view ranks regions, surfaces the most-exposed campuses, and breaks
 
 ## Why I built it
 
-> ⚠️ Draft origin story — make this *true* before you publish it; you'll be asked about it in interviews.
-
-[I kept running into the same wall: air-quality and emissions data exist, but they're scattered across
-half a dozen federal portals, each with its own format, login, and rate limit. As a student in
-[Texas / your field], I wanted to answer a simple question — *what's in the air around my campus?* —
-and found there was no single place to just look.] So I built one.
+On June 1, 2026, I wanted to see how fast I could go from zero to a deployed, data-rich production app using Claude Code's multi-agent system. Air quality felt like the right domain — the data is public, the sources are fragmented, and the question (what's in the air near where people live?) is one anyone can care about. By dinner, it was live. The build log is in docs/ORCHESTRATION.md.
 
 ## Features
 
 - Dark interactive map rendering 10k+ points at 60fps (deck.gl over MapLibre).
 - Independent toggle layers: facilities, air quality, schools, demographics, wind drift.
 - Genuinely live: an hourly scheduled job refreshes the sensor feed; every figure shows its timestamp and source.
-- Light/dark theme, mobile-degraded rendering, full data provenance on hover.
+- Mobile-degraded rendering, full data provenance on hover.
 
 ## Data sources
 
