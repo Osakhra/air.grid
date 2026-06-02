@@ -59,7 +59,7 @@ export default function AboutPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-md border border-accent-teal px-4 py-2 font-mono text-[13px] text-accent-teal transition-colors hover:bg-accent-teal hover:text-bg-primary"
             >
-              View my portfolio →
+              View my portfolio ↗
             </a>
 
           </div>
