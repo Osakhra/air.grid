@@ -4,16 +4,28 @@
 // static export cannot host. Deploy as a normal Next.js app on Vercel.
 const nextConfig = {
   reactStrictMode: true,
-  // Exclude large build-time and client-only packages from server function traces.
-  // @next/swc-* platform binaries (~130 MB each) are build tools, not runtime deps.
-  // @arcgis/core and @loaders.gl are transitive deps of deck.gl used only client-side.
+  // Belt-and-suspenders: exclude packages the Vercel builder must never ZIP into
+  // a serverless function. Primary protection is .vercelignore + the useEffect
+  // import pattern in MapLoader.tsx. This is the third layer.
   experimental: {
     outputFileTracingExcludes: {
-      '*': [
-        'node_modules/@next/swc-*/**/*',
-        'node_modules/@arcgis/**/*',
-        'node_modules/@loaders.gl/**/*',
-        'node_modules/maplibre-gl/dist/*.map',
+      // Use the actual page paths that Vercel traces (not '*' which may be a
+      // literal route match rather than a glob in some Next.js 14 patch versions).
+      '/': [
+        './node_modules/@next/swc-*/**',
+        './node_modules/@arcgis/**',
+        './node_modules/@loaders.gl/textures/**',
+        './node_modules/maplibre-gl/dist/*.map',
+      ],
+      '/analysis': [
+        './node_modules/@next/swc-*/**',
+        './node_modules/@arcgis/**',
+        './node_modules/@loaders.gl/textures/**',
+      ],
+      '/api/:path*': [
+        './node_modules/@next/swc-*/**',
+        './node_modules/@arcgis/**',
+        './node_modules/@loaders.gl/textures/**',
       ],
     },
   },

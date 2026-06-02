@@ -1,0 +1,22 @@
+# Platform-specific SWC compiler binaries.
+# These are build-time tools (~130 MB each). Vercel installs the right one
+# for its build environment, but it must not end up inside a function ZIP.
+node_modules/@next/swc-win32-x64-msvc
+node_modules/@next/swc-win32-ia32-msvc
+node_modules/@next/swc-win32-arm64-msvc
+node_modules/@next/swc-linux-x64-gnu
+node_modules/@next/swc-linux-x64-musl
+node_modules/@next/swc-linux-arm64-gnu
+node_modules/@next/swc-linux-arm64-musl
+node_modules/@next/swc-darwin-x64
+node_modules/@next/swc-darwin-arm64
+
+# ArcGIS Core — 68 MB, pulled in transitively by @loaders.gl (deck.gl dep).
+# It is never imported server-side; no function needs it at runtime.
+node_modules/@arcgis
+
+# @loaders.gl textures — contains large WASM blobs, client-only via deck.gl.
+node_modules/@loaders.gl/textures
+
+# maplibre-gl source maps — large (~4–5 MB each), useless at runtime.
+node_modules/maplibre-gl/dist/*.map

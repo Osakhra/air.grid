@@ -1,20 +1,9 @@
 <claude-code-hint v="1" type="plugin" value="vercel@claude-plugins-official" />
 Vercel CLI 54.7.1 (Node.js 24.11.0)
-
-  Set up "C:\Projects\air.grid"
-Loading teams…
-Searching for existing projects…
-  Linked      osakhras-projects/air-grid
-> Downloading `preview` Environment Variables for osakhras-projects/air-grid
-Downloading
-Created .vercel\.env.preview.local file  [139ms]
-
-> Downloading project settings
-Downloaded project settings to C:\Projects\air.grid\.vercel\project.json [0ms]
 WARNING: You should not upload the `.next` directory.
 Installing dependencies...
 
-up to date in 679ms
+up to date in 666ms
 
 58 packages are looking for funding
   run `npm fund` for details
@@ -24,11 +13,6 @@ Running "npm run build"
 > air-grid@0.1.0 build
 > next build
 
-Attention: Next.js now collects completely anonymous telemetry regarding usage.
-This information is used to shape Next.js' roadmap and prioritize features.
-You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-https://nextjs.org/telemetry
-
   ▲ Next.js 14.2.35
   - Environments: .env.local
 
@@ -36,11 +20,11 @@ https://nextjs.org/telemetry
  ✓ Compiled successfully
    Linting and checking validity of types ...
    Collecting page data ...
-   Generating static pages (0/18) ...
-   Generating static pages (4/18) 
-   Generating static pages (8/18) 
-   Generating static pages (13/18) 
- ✓ Generating static pages (18/18)
+   Generating static pages (0/6) ...
+   Generating static pages (1/6) 
+   Generating static pages (2/6) 
+   Generating static pages (4/6) 
+ ✓ Generating static pages (6/6)
    Finalizing page optimization ...
    Collecting build traces ...
 
@@ -48,18 +32,18 @@ Route (app)                              Size     First Load JS
 ┌ ○ /                                    1.35 kB        89.4 kB
 ├ ○ /_not-found                          877 B          88.9 kB
 ├ ƒ /analysis                            102 kB          190 kB
-├ ○ /api/analysis/aqi-leaderboard        0 B                0 B
-├ ○ /api/analysis/ej-hotspots            0 B                0 B
-├ ○ /api/analysis/most-exposed-schools   0 B                0 B
-├ ○ /api/analysis/pollutant-breakdown    0 B                0 B
-├ ○ /api/analysis/regional-breakdown     0 B                0 B
-├ ○ /api/analysis/summary                0 B                0 B
-├ ○ /api/analysis/top-polluters          0 B                0 B
-├ ○ /api/map/demographics                0 B                0 B
-├ ○ /api/map/facilities                  0 B                0 B
-├ ○ /api/map/schools                     0 B                0 B
-├ ○ /api/map/sensors                     0 B                0 B
-├ ○ /api/map/wind                        0 B                0 B
+├ ƒ /api/analysis/aqi-leaderboard        0 B                0 B
+├ ƒ /api/analysis/ej-hotspots            0 B                0 B
+├ ƒ /api/analysis/most-exposed-schools   0 B                0 B
+├ ƒ /api/analysis/pollutant-breakdown    0 B                0 B
+├ ƒ /api/analysis/regional-breakdown     0 B                0 B
+├ ƒ /api/analysis/summary                0 B                0 B
+├ ƒ /api/analysis/top-polluters          0 B                0 B
+├ ƒ /api/map/demographics                0 B                0 B
+├ ƒ /api/map/facilities                  0 B                0 B
+├ ƒ /api/map/schools                     0 B                0 B
+├ ƒ /api/map/sensors                     0 B                0 B
+├ ƒ /api/map/wind                        0 B                0 B
 └ ƒ /api/refresh                         0 B                0 B
 + First Load JS shared by all            88 kB
   ├ chunks/117-092a837ec2281584.js       31.9 kB
@@ -70,39 +54,37 @@ Route (app)                              Size     First Load JS
 ○  (Static)   prerendered as static content
 ƒ  (Dynamic)  server-rendered on demand
 
-Traced Next.js server files in: 42.173ms
+Traced Next.js server files in: 28.897ms
 Tracing entries due to missing build traces:
 [
   "C:/Projects/air.grid/.next/server/app/_not-found/page.js",
   "C:/Projects/air.grid/.next/server/app/analysis/page.js",
-  "C:/Projects/air.grid/.next/server/app/api/analysis/ej-hotspots/route.js",
-  "C:/Projects/air.grid/.next/server/app/api/analysis/most-exposed-schools/route.js",
-  "C:/Projects/air.grid/.next/server/app/api/analysis/aqi-leaderboard/route.js",
-  "C:/Projects/air.grid/.next/server/app/api/analysis/regional-breakdown/route.js",
   "C:/Projects/air.grid/.next/server/app/api/analysis/pollutant-breakdown/route.js",
+  "C:/Projects/air.grid/.next/server/app/api/analysis/most-exposed-schools/route.js",
+  "C:/Projects/air.grid/.next/server/app/api/analysis/summary/route.js",
+  "C:/Projects/air.grid/.next/server/app/api/analysis/aqi-leaderboard/route.js",
   "C:/Projects/air.grid/.next/server/app/api/analysis/top-polluters/route.js",
   "C:/Projects/air.grid/.next/server/app/api/map/demographics/route.js",
+  "C:/Projects/air.grid/.next/server/app/api/map/facilities/route.js",
   "C:/Projects/air.grid/.next/server/app/api/map/sensors/route.js",
-  "C:/Projects/air.grid/.next/server/app/api/analysis/summary/route.js",
+  "C:/Projects/air.grid/.next/server/app/api/analysis/regional-breakdown/route.js",
   "C:/Projects/air.grid/.next/server/app/api/map/schools/route.js",
   "C:/Projects/air.grid/.next/server/app/api/map/wind/route.js",
-  "C:/Projects/air.grid/.next/server/app/api/map/facilities/route.js",
+  "C:/Projects/air.grid/.next/server/app/api/analysis/ej-hotspots/route.js",
   "C:/Projects/air.grid/.next/server/app/api/refresh/route.js"
-]: 808.956ms
-Created all serverless functions in: 864.924ms
+]: 777.04ms
+Created all serverless functions in: 831.823ms
+Collected static files (public/, static/, .next/static): 3.385ms
 {
-  "status": "error",
-  "reason": "build_failed",
-  "message": "Unable to find lambda for route: /api/analysis/aqi-leaderboard",
+  "status": "ok",
+  "outputDir": "C:\\Projects\\air.grid\\.vercel\\output",
+  "outputDirRelative": ".vercel\\output",
+  "target": "preview",
+  "message": "Build completed successfully.",
   "next": [
     {
-      "command": "vercel pull --yes",
-      "when": "Ensure project settings are present"
-    },
-    {
-      "command": "vercel build --yes",
-      "when": "re-run build"
+      "command": "vercel deploy",
+      "when": "Deploy the build output"
     }
   ]
 }
-Error: Unable to find lambda for route: /api/analysis/aqi-leaderboard
