@@ -5,7 +5,7 @@
   "description": "air.grid — a live U.S. air-quality + industrial-emissions atlas. A castor subdomain at air.andrewcastor.dev.",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/precompute-analysis.js && next build",
     "start": "next start",
     "lint": "next lint",
     "ingest": "python etl/run_all.py"
