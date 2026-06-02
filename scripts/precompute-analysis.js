@@ -209,4 +209,66 @@ const summary = {
 };
 write('summary.json', summary);
 
+// ═══════════════════════════════════════════════════════════════════════════
+// MAP DATA  — filtered/sampled GeoJSON for the map API routes.
+// Same pattern: import directly in force-static routes; no HTTP self-fetch.
+// ═══════════════════════════════════════════════════════════════════════════
+
+const MAP_LIB = path.join(__dirname, '..', 'app', 'lib', 'map-data');
+fs.mkdirSync(MAP_LIB, { recursive: true });
+
+function writeMap(name, data) {
+  const json = JSON.stringify(data);
+  fs.writeFileSync(path.join(MAP_LIB, name), json, 'utf-8');
+  const kb = Math.round(Buffer.byteLength(json) / 1024);
+  console.log(`  wrote   app/lib/map-data/${name} (${kb} KB)`);
+}
+
+console.log('\nprecompute-analysis: generating map data…');
+
+// Read wind + demographics (not needed for analysis but needed for map)
+const wind = read('wind.geojson');
+const demographics = read('demographics.geojson');
+
+// ── map/facilities: top 10,000 by emissions ───────────────────────────────
+const mapFacilities = {
+  type: 'FeatureCollection',
+  features: fac.features
+    .filter(f => f.properties && typeof f.properties.emissions_value === 'number' && f.properties.lat != null && f.properties.lng != null)
+    .sort((a, b) => (b.properties.emissions_value ?? 0) - (a.properties.emissions_value ?? 0))
+    .slice(0, 10000),
+  metadata: { sampled: true, sample_size: 10000, total: fac.features.length, sort: 'emissions_value desc' },
+};
+writeMap('facilities.json', mapFacilities);
+
+// ── map/sensors: all sensors (live data baked at build time) ──────────────
+writeMap('sensors.json', sen);
+
+// ── map/schools: top 20,000 by enrollment ─────────────────────────────────
+const validSchools = sch.features.filter(f => f.properties && f.properties.lat != null && f.properties.lng != null);
+const mapSchools = {
+  type: 'FeatureCollection',
+  features: validSchools
+    .sort((a, b) => (b.properties.enrollment ?? 0) - (a.properties.enrollment ?? 0))
+    .slice(0, 20000),
+  metadata: { sampled: true, sample_size: Math.min(validSchools.length, 20000), total: sch.features.length, sort: 'enrollment desc' },
+};
+writeMap('schools.json', mapSchools);
+
+// ── map/wind: all 76 observations ─────────────────────────────────────────
+writeMap('wind.json', wind);
+
+// ── map/demographics: 15,000 sampled census-tract centroids ───────────────
+const validDemo = demographics.features.filter(
+  f => f.properties && f.properties.lat != null && f.properties.lng != null && typeof f.properties.pct_minority === 'number'
+);
+const demoStep = Math.max(1, Math.floor(validDemo.length / 15000));
+const sampledDemo = validDemo.filter((_, i) => i % demoStep === 0).slice(0, 15000);
+const mapDemographics = {
+  type: 'FeatureCollection',
+  features: sampledDemo,
+  metadata: { sampled: true, sample_size: sampledDemo.length, total: demographics.features.length },
+};
+writeMap('demographics.json', mapDemographics);
+
 console.log('\nprecompute-analysis: done.\n');
